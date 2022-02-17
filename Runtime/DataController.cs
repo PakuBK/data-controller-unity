@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using static Paku.Logger.QLogger;
 using System.Collections;
 
 namespace Paku.Data
@@ -14,8 +13,6 @@ namespace Paku.Data
         public static readonly string m_PathEnding = ".save";
         public static readonly string m_VolumeFile = "volume_settings";
 
-        #region Save Functions
-
         #region Game Data
         public static void SavePlayerData(PlayerData _save)
         {
@@ -24,7 +21,7 @@ namespace Paku.Data
 
             if (_save == null)
             {
-                LogWarning("You're trying to pass a null Player Stats Object", "Data Controller");
+                LogWarning("You're trying to pass a null Player Stats Object");
             }
 
             // Create the File Stream
@@ -39,7 +36,7 @@ namespace Paku.Data
             _formatter.Serialize(_stream, _data);
             _stream.Close();
 
-            Log("Saved Data", "Data Controller");
+            Log("Saved Data");
         }
 
         public static PlayerDataToken LoadPlayerData(string _saveName)
@@ -52,13 +49,13 @@ namespace Paku.Data
 
                 PlayerDataToken data = (PlayerDataToken) _formatter.Deserialize(_stream);
                 _stream.Close();
-                Log("Loaded Data", "Data Controller");
+                Log("Loaded Data");
 
                 return data;
             }
             else
             {
-                LogError("Save file not found in " + _path, "Data Controller");
+                LogError("Save file not found in " + _path);
                 return new PlayerDataToken();
             }
         }
@@ -70,7 +67,7 @@ namespace Paku.Data
         {
             if (_volumeTable == null)
             {
-                LogWarning("You're trying to pass a null Volume Table Object", "Data Controller");
+                LogWarning("You're trying to pass a null Volume Table Object");
             }
 
             // Create File Stream
@@ -83,7 +80,7 @@ namespace Paku.Data
             _formatter.Serialize(_stream, _data);
             _stream.Close();
 
-            Log("Saved Volume Data", "Data Controller");
+            Log("Saved Volume Data");
         }
 
         public static Hashtable LoadVolumeData()
@@ -97,18 +94,33 @@ namespace Paku.Data
                 VolumeDataToken data = (VolumeDataToken) _formatter.Deserialize(_stream);
                 _stream.Close();
 
-                Log("Loaded Volume Data", "Data Controller");
+                Log("Loaded Volume Data");
 
                 return data.volumeTable;
             }
             else
             {
-                LogError("Save file not found in " + _path, "Data Controller");
+                LogError("Save file not found in " + _path);
                 return null;
             }
         }
 
         #endregion
+
+        #region Logger
+
+        private static void Log(string _msg)
+        {
+            Debug.Log("[Data Controller] " + _msg);
+        }
+        private static void LogWarning(string _msg)
+        {
+            Debug.LogWarning("[Data Controller] " + _msg);
+        }
+        private static void LogError(string _msg)
+        {
+            Debug.LogError("[Data Controller] " + _msg);
+        }
 
         #endregion
     }
