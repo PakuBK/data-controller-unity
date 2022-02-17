@@ -10,6 +10,9 @@
     "data managment",
     "data"
   ],
+  "dependencies": {
+    "com.paku.qlogger": "1.0.0",
+  },
   "author": {
     "name": "Paku",
     "email": "pakudevelops@gmail.com",
