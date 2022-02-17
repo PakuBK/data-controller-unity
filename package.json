@@ -11,7 +11,7 @@
     "data"
   ],
   "dependencies": {
-    "com.paku.qlogger": "1.0.0",
+    "com.paku.qlogger": "1.0.0"
   },
   "author": {
     "name": "Paku",
